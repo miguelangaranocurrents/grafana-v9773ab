@@ -548,11 +548,12 @@ export function doStandardCalcs(field: Field, ignoreNulls: boolean, nullAsZero: 
           }
         }
 
-        if (currentValue > calcs.max) {
+        // Ignore non-numeric values (e.g. strings in a mixed column) so max/min stay numbers
+        if (typeof currentValue === 'number' && currentValue > calcs.max) {
           calcs.max = currentValue;
         }
 
-        if (currentValue < calcs.min) {
+        if (typeof currentValue === 'number' && currentValue < calcs.min) {
           calcs.min = currentValue;
         }
 
